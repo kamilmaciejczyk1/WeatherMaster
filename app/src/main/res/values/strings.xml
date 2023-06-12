@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WeatherMaster</string>
+    <string name="location">Location</string>
+    <string name="temperature">Temperature</string>
+    <string name="weather_description">Weather Description</string>
+    <string name="wind_speed">Wind Speed</string>
 </resources>
