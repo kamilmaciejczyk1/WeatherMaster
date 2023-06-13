@@ -1,44 +1,24 @@
 package com.example.weathermaster;
 
+import java.util.List;
+
 public class WeatherForecast {
-    private final String date;
-    private final String temperature;
-    private final String weatherDescription;
-    private final String humidity;
-    private final String windspeed;
-    private final String pressure;
-    private final String visibility;
-    private final String winddirection;
-    private final String conditions;
+    private  String[] fields;
 
-    public WeatherForecast(String date, String temperature, String weatherDescription, String humidity, String windspeed, String pressure, String visibility,String winddirection, String conditions) {
-        this.date = date;
-        this.temperature = temperature;
-        this.weatherDescription = weatherDescription;
-        this.humidity = humidity;
-        this.windspeed = windspeed;
-        this.pressure = pressure;
-        this.visibility = visibility;
-        this.winddirection = winddirection;
-        this.conditions = conditions;
+    public WeatherForecast(String date, String temperature, String humidity, String windspeed, String pressure, String visibility, String winddirection, String conditions, String weatherDescription) {
+        fields = new String[] {date, temperature, humidity, windspeed, pressure, visibility, winddirection, conditions, weatherDescription};
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public String getTemperature() {
-        return temperature;
-    }
 
-    public String getWeatherDescription() {
-        return weatherDescription;
+    public String getField(int index) {
+        if (index >= 0 && index < fields.length) {
+            return fields[index];
+        } else {
+            return "";
+        }
     }
-    public String getHumidity() { return humidity;   }
-    public String getWindspeed() { return windspeed;   }
-    public String getPressure() { return pressure;   }
-    public String getVisibility() { return visibility;   }
-    public String getWinddirection() { return winddirection;   }
-    public String getConditions() { return conditions;   }
 }
+
+
 
