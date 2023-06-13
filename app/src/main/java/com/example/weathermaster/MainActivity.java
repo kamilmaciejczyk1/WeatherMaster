@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        temperatureText = findViewById(R.id.temperature);
-        weatherDescriptionText = findViewById(R.id.weather_description);
-        windSpeedText = findViewById(R.id.wind_speed);
-        location = findViewById(R.id.location);
+       // temperatureText = findViewById(R.id.temperature);
+        //weatherDescriptionText = findViewById(R.id.weather_description);
+        //windSpeedText = findViewById(R.id.wind_speed);
+        //location = findViewById(R.id.location);
 
         forecastRecyclerView = findViewById(R.id.forecast_recycler_view);
 
@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void setWeatherData() {
-        temperatureText.setText("20 °C");
-        weatherDescriptionText.setText("Sunny");
-        windSpeedText.setText("5 km/h");
-        location.setText("Katowice");
+       // temperatureText.setText("20 °C");
+        //weatherDescriptionText.setText("Sunny");
+        //windSpeedText.setText("5 km/h");
+        //location.setText("Katowice");
 
         List<WeatherForecast> forecastList = getDummyForecast();
         ForecastAdapter adapter = new ForecastAdapter(forecastList);
@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     private List<WeatherForecast> getDummyForecast() {
         List<WeatherForecast> forecastList = new ArrayList<>();
-        forecastList.add(new WeatherForecast("Tomorrow", "22°C", "Sunny"));
-        forecastList.add(new WeatherForecast("14.06", "23°C", "Cloudy"));
-        forecastList.add(new WeatherForecast("15.06", "69°C", "Cloudy"));
+        forecastList.add(new WeatherForecast("Tomorrow", "22°C", "Sunny","humidity","windspeed","pressure","visibility","wind dir","conditions"));
+        //forecastList.add(new WeatherForecast("14.06", "23°C", "Cloudy"));
+        //forecastList.add(new WeatherForecast("15.06", "69°C", "Cloudy"));
         // Add more dummy data...
 
         return forecastList;
