@@ -8,40 +8,6 @@
     tools:context=".MainActivity">
 
 
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:gravity="center"
-        android:text="@string/location"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/temperature"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:gravity="center"
-        android:text="@string/temperature"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/weather_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/weather_description"
-        android:textSize="20sp" />
-
-
-    <TextView
-        android:id="@+id/wind_speed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/wind_speed"
-        android:textSize="20sp" />
-
     <!-- Continue with other views... -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forecast_recycler_view"

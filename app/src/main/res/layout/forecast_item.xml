@@ -8,23 +8,65 @@
 
     <TextView
         android:id="@+id/date_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="16sp" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/forecast_temperature_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="16sp" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/forecast_weather_description_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="16sp" />
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/humidity_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/pressure_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/visibility_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/windspeed_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/winddirection_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/conditions_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="22sp" />
 
 </LinearLayout>
