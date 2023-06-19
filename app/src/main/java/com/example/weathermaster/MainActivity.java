@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity implements WeatherRequest.WeatherRequestListener {
     private RecyclerView forecastRecyclerView;
     private WeatherRequest weatherRequest;
+    private WeatherAlerts weatherAlerts;
     private Executor executor;
     private ForecastAdapter forecastAdapter;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
 
         SSLUtils.disableCertificateValidation();
 
+        // if (dzienna,godzinowa,7dni, alerty) {weatherRequest/weatherAlerts}
         weatherRequest = new WeatherRequest(this);
         executor = Executors.newSingleThreadExecutor();
         Button hourlyForecastButton = findViewById(R.id.hourly_forecast_button);
@@ -45,13 +47,12 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
             Intent intent = new Intent(MainActivity.this, Map.class);
             startActivity(intent);
         });
-        executeWeatherRequest("Gliwice");
+        executeWeatherRequest("Norylsk");
     }
 
     private void executeWeatherRequest(String city) {
         String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city +"/2023-06-13/2023-06-13?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cwindspeed%2Cwinddir%2Cpressure%2Cvisibility%2Cconditions%2Cdescription&include=days&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
         executor.execute(() -> weatherRequest.executeRequest(dailyForecastUrl));
-
     }
 
     @Override
