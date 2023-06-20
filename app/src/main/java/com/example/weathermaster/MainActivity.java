@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,13 +36,30 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         Button hourlyForecastButton = findViewById(R.id.hourly_forecast_button);
         Button sevenDaysForecastButton = findViewById(R.id.seven_days_forecast_button);
         Button mapButton = findViewById(R.id.map_button);
-
+        Button addLocationButton = findViewById(R.id.add_location_button);
+        final SearchView searchbar = findViewById(R.id.searchbar);
         hourlyForecastButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HourlyForecastActivity.class);
             intent.putExtra("miasto", selectedCity); // Dodaj wybrane miasto do Intentu
             startActivity(intent);
         });
 
+        addLocationButton.setOnClickListener(v -> {
+
+            if (searchbar.getVisibility() == View.INVISIBLE) {
+                searchbar.setVisibility(View.VISIBLE);
+                searchbar.setBackgroundColor(getColor(R.color.white));
+            } else {
+                // Dodaj lokalizację do globalnej listy miejsc jeśli istnieje
+                // Albo zrobić nowy ekran z wyszukanym miastem albo od razu szukać po wpisaniu
+
+                // Wyzeruj pole wyszukiwania
+                searchbar.setQuery("", false);
+
+                // Zmiana widoczności SearchView
+                searchbar.setVisibility(View.INVISIBLE);
+            }
+        });
 
         sevenDaysForecastButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SevenDaysForecastActivity.class);
