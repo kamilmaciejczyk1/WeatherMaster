@@ -1,21 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background"
-    tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <!-- Continue with other views... -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/forecast_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingTop="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/forecast_item" />
+        android:background="@drawable/background">
 
-</LinearLayout>
+        <!-- Continue with other views... -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecast_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/forecast_item" />
+
+        <Button
+            android:id="@+id/hourly_forecast_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prognoza godzinowa"
+            android:background="#434343"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/forecast_recycler_view"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/seven_days_forecast_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prognoza na 7 dni"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="12dp"
+            android:background="#434343"
+            android:layout_below="@+id/hourly_forecast_button"
+            android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/map_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mapa"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="12dp"
+            android:background="#434343"
+            android:layout_below="@+id/seven_days_forecast_button"
+            android:layout_marginTop="16dp" />
+
+    </RelativeLayout>
+
+</ScrollView>
