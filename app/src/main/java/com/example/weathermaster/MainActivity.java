@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,30 +37,38 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         forecastRecyclerView = findViewById(R.id.forecast_recycler_view);
 
         SSLUtils.disableCertificateValidation();
-
+        View forecastItem = getLayoutInflater().inflate(R.layout.forecast_item, null);
         weatherRequest = new WeatherRequest(this);
         executor = Executors.newSingleThreadExecutor();
         Button hourlyForecastButton = findViewById(R.id.hourly_forecast_button);
         Button sevenDaysForecastButton = findViewById(R.id.seven_days_forecast_button);
         Button mapButton = findViewById(R.id.map_button);
-        Button searchButton = findViewById(R.id.search_button);
-        Button addButton = findViewById(R.id.add_location_button);
+        ImageView searchButton = findViewById(R.id.search_button); // Pobranie odwołania do przycisku z layoutu
+        ImageView addButton = findViewById(R.id.add_location_button);
         SearchView searchbar = findViewById(R.id.searchbar);
         int closeButtonId = searchbar.getContext().getResources()
                 .getIdentifier("android:id/search_close_btn", null, null);
         ImageView clearSearchBar = findViewById(closeButtonId);
         Spinner citySpinner = findViewById(R.id.citySpinner);
-
+        TextView city = forecastItem.findViewById(R.id.address_text);
+        city.setClickable(true);
 // Przygotowanie danych miast
         List<String> cityList = new ArrayList<String>();
         cityList.add("Katowice");
         cityList.add("Gliwice");
 
 // Utwórz adapter i przypisz go do Spinera
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityList);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(getResources().getColor(R.color.transparent)); // Ustaw kolor tekstu dla wybranego elementu
+                return textView;
+            }
+        };
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(spinnerAdapter);
-
+        citySpinner.setDropDownWidth(400);
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
             }
         });
 
+        city.setOnContextClickListener(v -> citySpinner.performClick());
         hourlyForecastButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HourlyForecastActivity.class);
             intent.putExtra("miasto", selectedCity); // Dodaj wybrane miasto do Intentu
@@ -80,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         });
 
         searchButton.setOnClickListener(v -> {
-
             if (searchbar.getVisibility() == View.INVISIBLE) {
                 searchbar.setVisibility(View.VISIBLE);
                 searchbar.setBackgroundColor(getColor(R.color.lightgray));
@@ -97,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
             }
         });
         addButton.setOnClickListener(v -> {
-
+            if(cityList.contains(selectedCity)){ return;}
+            cityList.add(selectedCity);
         });
         clearSearchBar.setOnClickListener(new View.OnClickListener() {
             @Override
