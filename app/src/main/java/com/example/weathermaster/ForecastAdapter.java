@@ -34,7 +34,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     private String getUnitForField(int fieldIndex) {
         switch (fieldIndex) {
             case 1: // forecast_temperature_text
-                return "°C";
+                return "";
             case 2: // humidity_text
                 return "";
             case 3: // windspeed_text
