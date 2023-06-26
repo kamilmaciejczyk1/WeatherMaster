@@ -87,6 +87,8 @@ public class WeatherRequest {
             for (int i = 0; i < daysArray.length(); i++) {
                 JSONObject dayObject = daysArray.getJSONObject(i);
 
+
+
                 String datetime = dayObject.getString("datetime");
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("MM-dd");

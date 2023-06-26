@@ -16,18 +16,25 @@ public class SevenDaysForecastActivity extends AppCompatActivity implements Weat
     private Executor executor;
     private SevenDaysForecastAdapter forecastAdapter;
 
+    private String selectedCity; // Dodaj zmienną przechowującą wybrane miasto
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seven_days_forecast);
-
+        if (getIntent().hasExtra("miasto")) {
+            selectedCity = getIntent().getStringExtra("miasto");
+        } else {
+            selectedCity = "London"; // Domyślne miasto, jeśli nie zostało wybrane żadne
+        }
         forecastRecyclerView = findViewById(R.id.forecast_recycler_view);
 
         SSLUtils.disableCertificateValidation();
 
         weatherRequest = new WeatherRequest(this);
         executor = Executors.newSingleThreadExecutor();
-        executeWeatherRequest("Gliwice");
+        executeWeatherRequest(selectedCity);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -43,7 +50,7 @@ public class SevenDaysForecastActivity extends AppCompatActivity implements Weat
         return super.onOptionsItemSelected(item);
     }
     private void executeWeatherRequest(String city) {
-        LocalDate startDate = LocalDate.of(2023, 6, 13);
+        LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(7);
 
         String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city + "/" + startDate.toString() + "/" + endDate.toString() + "?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cwindspeed%2Cwinddir%2Cpressure%2Cvisibility%2Cconditions%2Cdescription&include=days&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";

@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:clipToPadding="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/forecast_item" />
 
@@ -23,7 +24,7 @@
             android:id="@+id/hourly_forecast_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Prognoza godzinowa"
+            android:text="Hourly forecast"
             android:background="#434343"
             android:textColor="@android:color/white"
             android:layout_below="@+id/forecast_recycler_view"
@@ -36,7 +37,7 @@
             android:id="@+id/seven_days_forecast_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Prognoza na 7 dni"
+            android:text="Seven-day forecast"
             android:textColor="@android:color/white"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -48,7 +49,7 @@
             android:id="@+id/map_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mapa"
+            android:text="Precipitation map"
             android:textColor="@android:color/white"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -56,6 +57,49 @@
             android:background="#434343"
             android:layout_below="@+id/seven_days_forecast_button"
             android:layout_marginTop="16dp" />
+
+        <SearchView
+            android:id="@+id/searchbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/lightgray"
+            android:backgroundTint="@color/lightgray"
+            android:translationZ="12dp"
+            android:visibility="invisible" />
+
+        <Spinner
+            android:id="@+id/citySpinner"
+            android:layout_width="139dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/search_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="132dp"
+            android:contextClickable="false"
+            android:textAlignment="center"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="24dp"
+            app:srcCompat="@drawable/searchv3" />
+
+        <ImageView
+            android:id="@+id/add_location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/search_button"
+            app:srcCompat="@drawable/add" />
 
     </RelativeLayout>
 
