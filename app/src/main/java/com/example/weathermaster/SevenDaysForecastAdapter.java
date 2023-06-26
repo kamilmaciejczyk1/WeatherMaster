@@ -13,9 +13,13 @@ import java.util.List;
 
 public class SevenDaysForecastAdapter extends RecyclerView.Adapter<SevenDaysForecastAdapter.SevenDaysForecastViewHolder> {
         private List<WeatherForecast> sevenDaysForecastList;
+        private String selectedCity;
+
 
     public SevenDaysForecastAdapter(List<WeatherForecast> sevenDaysForecastList) {
         this.sevenDaysForecastList = sevenDaysForecastList;
+        this.selectedCity = selectedCity;
+
     }
 
 
@@ -52,8 +56,24 @@ public class SevenDaysForecastAdapter extends RecyclerView.Adapter<SevenDaysFore
 
         public void bind(WeatherForecast forecast) {
             dayTextView.setText(forecast.getField(0)); // Używamy getField(0) dla godziny
-            // Użyjemy placeholdera dla ikony pogodowej, aby dostosować go do swojej implementacji
-            weatherIconImageView.setImageResource(R.drawable.cloudy);
+
+            // Ustalamy ikonę na podstawie warunków pogodowych
+            String condition = forecast.getField(7);
+            if (condition.contains("Rain, Partially cloudy")) {
+                weatherIconImageView.setImageResource(R.drawable.rain_partially_cloudy); // obraz dla deszczowej pogody
+            } else if (condition.contains("Partially cloudy")) {
+                weatherIconImageView.setImageResource(R.drawable.partially_cloudy); // obraz dla śnieżnej pogody
+            } else if (condition.contains("Clear")) {
+                weatherIconImageView.setImageResource(R.drawable.sunny); // obraz dla słonecznej pogody
+            } else if (condition.contains("Rain, Overcast")) {
+                weatherIconImageView.setImageResource(R.drawable.rain_overcast); // obraz dla słonecznej pogody
+            } else if (condition.contains("Overcast"))
+            {
+                weatherIconImageView.setImageResource(R.drawable.overcast); // obraz dla słonecznej pogody
+            } else {
+                weatherIconImageView.setImageResource(R.drawable.cloudy); // obraz dla chmurnej pogody
+            }
+
             temperatureTextView.setText(forecast.getField(1)); // Używamy getField(1) dla temperatury
         }
     }

@@ -13,9 +13,13 @@ import java.util.List;
 
 public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.HourlyForecastViewHolder> {
     private List<WeatherForecast> hourlyForecastList;
+    private String selectedCity;
 
-    public HourlyForecastAdapter(List<WeatherForecast> hourlyForecastList) {
+
+    public HourlyForecastAdapter(List<WeatherForecast> hourlyForecastList, String selectedCity) {
         this.hourlyForecastList = hourlyForecastList;
+        this.selectedCity = selectedCity;
+
     }
 
     @NonNull
@@ -49,11 +53,42 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         }
 
         public void bind(WeatherForecast forecast) {
-            hourTextView.setText(forecast.getField(0)); // Używamy getField(0) dla godziny
-            // Użyjemy placeholdera dla ikony pogodowej, aby dostosować go do swojej implementacji
-            weatherIconImageView.setImageResource(R.drawable.cloudy);
+            String hourText = forecast.getField(0); // Używamy getField(0) dla godziny
+            hourTextView.setText(hourText);
+
+            // Przekształcamy godzinę w postaci Stringa na int, aby móc ją porównać
+            int hour = Integer.parseInt(hourText.split(":")[0]);
+
+            // Sprawdzamy czy jest noc
+            boolean isNight = hour >= 21 || hour < 5;
+
+            // Ustalamy ikonę na podstawie warunków pogodowych
+            String condition = forecast.getField(7);
+
+            if (condition.contains("Rain, Partially cloudy")) {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.night_rain_partially_cloudy : R.drawable.rain_partially_cloudy);
+            } else if (condition.contains("Partially cloudy")) {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.night_partially_cloudy : R.drawable.partially_cloudy);
+            } else if (condition.contains("Clear")) {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.night_sunny : R.drawable.sunny);
+            } else if (condition.contains("Rain, Overcast")) {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.night_rain_overcast : R.drawable.rain_overcast);
+            } else if (condition.contains("Overcast")) {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.night_overcast : R.drawable.overcast);
+            } else {
+                weatherIconImageView.setImageResource(
+                        isNight ? R.drawable.cloudy : R.drawable.cloudy);
+            }
+
             temperatureTextView.setText(forecast.getField(1)); // Używamy getField(1) dla temperatury
         }
+
+
     }
 }
 
