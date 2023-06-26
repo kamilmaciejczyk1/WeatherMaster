@@ -1,22 +1,17 @@
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/forecast_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background">
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/seven_days_forecast_item" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/forecast_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#434343"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/seven_days_forecast_item" />
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>

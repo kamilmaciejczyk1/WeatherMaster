@@ -30,10 +30,10 @@ public class Map extends AppCompatActivity {
         map = (WebView) findViewById(R.id.map);
         WebSettings webSettings = map.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        String city = getIntent().getStringExtra("miasto");
 
         final String OPEN_WEATHER_MAP_API = "https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=1bd674b554c22cc6d3f3847782bf5681";
 // Zapytanie do Nominatim API, aby uzyskać współrzędne dla miasta
-        String city = "Gliwice"; // Miasto, które chcesz zlokalizować
         String NOMINATIM_API = "https://nominatim.openstreetmap.org/search?q=%s&format=json&limit=1";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, String.format(NOMINATIM_API, city),
