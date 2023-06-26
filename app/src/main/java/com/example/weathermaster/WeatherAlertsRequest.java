@@ -91,7 +91,6 @@ public class WeatherAlertsRequest {
                         String description = alertObject.getString("description");
                         String ends = alertObject.getString("ends");
                         String onset = alertObject.getString("onset");
-                        // ...
 
                         weatherAlert = new WeatherAlerts(event, headline, description,"","","","","","",""); //...
                         if (weatherAlert != null) {
@@ -127,9 +126,6 @@ public class WeatherAlertsRequest {
             e.printStackTrace();
         }
     }
-
-
-
 
     public interface WeatherAlertsRequestListener {
         void onAlertsRequestCompleted(List<WeatherAlerts> weatherAlertsList);
