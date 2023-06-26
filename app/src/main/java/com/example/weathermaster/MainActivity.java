@@ -24,6 +24,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity implements WeatherRequest.WeatherRequestListener {
     private RecyclerView forecastRecyclerView;
     private WeatherRequest weatherRequest;
+    private WeatherAlerts weatherAlerts;
     private Executor executor;
     private ForecastAdapter forecastAdapter;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         forecastRecyclerView = findViewById(R.id.forecast_recycler_view);
 
         SSLUtils.disableCertificateValidation();
+        // if (dzienna,godzinowa,7dni, alerty) {weatherRequest/weatherAlerts}
         View forecastItem = getLayoutInflater().inflate(R.layout.forecast_item, null);
         weatherRequest = new WeatherRequest(this);
         executor = Executors.newSingleThreadExecutor();
@@ -157,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
             intent.putExtra("miasto", selectedCity); // Dodaj wybrane miasto do Intentu
             startActivity(intent);
         });
-
 
         // Sprawdź, czy Intent zawiera wybrane miasto
         if (getIntent().hasExtra("miasto")) {
