@@ -74,14 +74,14 @@ public class WeatherAlertsRequest {
         reader.close();
         return stringBuilder.toString();
     }
-
-    private void parseResponse(String response) {
+    public void parseResponse(String response) {
         try {
             JSONObject jsonResponse = new JSONObject(response);
+            List<WeatherAlerts> weatherAlertsList = new ArrayList<>();
+            WeatherAlerts weatherAlert = null;
             if (jsonResponse.has("alerts")) {
                 JSONArray alertsArray = jsonResponse.getJSONArray("alerts");
 
-                List<WeatherAlerts> weatherAlertsList = new ArrayList<>();
                 if (alertsArray.length() > 0) {
                     for (int i = 0; i < alertsArray.length(); i++) {
                         JSONObject alertObject = alertsArray.getJSONObject(i);
@@ -90,28 +90,35 @@ public class WeatherAlertsRequest {
                         String headline = alertObject.getString("headline");
                         String description = alertObject.getString("description");
                         String ends = alertObject.getString("ends");
-                        String endsEpoch = alertObject.getString("endsEpoch");
                         String onset = alertObject.getString("onset");
-                        String onsetEpoch = alertObject.getString("onsetEpoch");
-                        String id = alertObject.getString("id");
-                        String language = alertObject.getString("language");
-                        String link = alertObject.getString("link");
+                        // ...
 
-                        WeatherAlerts weatherAlert = new WeatherAlerts(event, headline, description, ends, endsEpoch, onset, onsetEpoch, id, language, link);
-                        weatherAlertsList.add(weatherAlert);
+                        weatherAlert = new WeatherAlerts(event, headline, description,"","","","","","",""); //...
+                        if (weatherAlert != null) {
+                            weatherAlertsList.add(weatherAlert);
+                        }
+
+                        // create a notification for this alert
+                        // for simplicity, use headline as notification title and description as notification content
+                        ((MainActivity) listener).createNotification(headline, description, ends, onset);  // You need to ensure that the listener is MainActivity
                     }
                 } else {
-                    // Tablica alerts jest pusta
-                    weatherAlertsList.add(new WeatherAlerts("No alerts available", "", "", "", "", "", "", "", "", ""));
+                    // No alerts available
+                    weatherAlert = new WeatherAlerts("No alerts available", "", "", "", "", "", "", "", "", "");
+                    if (weatherAlert != null) {
+                        weatherAlertsList.add(weatherAlert);
+                    }
                 }
 
                 if (listener != null) {
                     listener.onAlertsRequestCompleted(weatherAlertsList);
                 }
             } else {
-                // Brak informacji o alertach
-                List<WeatherAlerts> weatherAlertsList = new ArrayList<>();
-                weatherAlertsList.add(new WeatherAlerts("No alerts available", "", "", "", "", "", "", "", "", ""));
+                // No alerts information
+                weatherAlert = new WeatherAlerts("No alerts available", "", "", "", "", "", "", "", "", "");
+                if (weatherAlert != null) {
+                    weatherAlertsList.add(weatherAlert);
+                }
                 if (listener != null) {
                     listener.onNoAlertsAvailable(weatherAlertsList);
                 }
@@ -120,6 +127,8 @@ public class WeatherAlertsRequest {
             e.printStackTrace();
         }
     }
+
+
 
 
     public interface WeatherAlertsRequestListener {
