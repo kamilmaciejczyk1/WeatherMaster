@@ -74,7 +74,7 @@
         <SearchView
             android:id="@+id/searchbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:background="@color/lightgray"
@@ -82,10 +82,11 @@
             android:translationZ="12dp"
             android:visibility="invisible" />
 
+
         <Spinner
             android:id="@+id/citySpinner"
             android:layout_width="139dp"
-            android:layout_height="35dp"
+            android:layout_height="48dp"
             android:layout_below="@+id/search_button"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-1dp"

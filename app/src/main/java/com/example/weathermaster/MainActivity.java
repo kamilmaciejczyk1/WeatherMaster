@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         Button mapButton = findViewById(R.id.map_button);
 
         Button simulateAlertButton = findViewById(R.id.simulate_alert_button);
-        simulateAlertButton.setOnClickListener(v -> simulateWeatherAlert());
+        simulateAlertButton.setOnClickListener(v -> simulateWeatherAlert(selectedCity));
 
         ImageView searchButton = findViewById(R.id.search_button); // Pobranie odwołania do przycisku z layoutu
         ImageView addButton = findViewById(R.id.add_location_button);
@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
             intent.putExtra("miasto", selectedCity); // Dodaj wybrane miasto do Intentu
             startActivity(intent);
         });
-        executeWeatherRequest("North Bay");
 
         // Sprawdź, czy Intent zawiera wybrane miasto
         if (getIntent().hasExtra("miasto")) {
@@ -186,11 +185,12 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         executeWeatherRequest(selectedCity);
     }
 
-    public void simulateWeatherAlert() {
+    public void simulateWeatherAlert(String city) {
         Log.d("MainActivity", "Simulateweatheralert() called");
+        LocalDate startDate = LocalDate.now();
 
         // Symulacja danych z API
-        String weatherAlertsUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Gdansk/2023-06-26/2023-06-26?unitGroup=us&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
+        String weatherAlertsUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city + "/"+startDate.toString()+"/"+startDate.toString()+"?unitGroup=us&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
 
         // Tworzymy obiekt WeatherAlertsRequest
         WeatherAlertsRequest weatherAlertsRequest = new WeatherAlertsRequest(this);
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
         String notificationContent = content + "\nStart: " + onsetFormatted + "\nEnd: " + endsFormatted;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
+                .setSmallIcon(R.drawable.wykrzyknik)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements WeatherRequest.We
 
 
     private void executeWeatherRequest(String city) {
-        String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city +"/2023-06-26/2023-06-26?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cwindspeed%2Cwinddir%2Cpressure%2Cvisibility%2Cconditions%2Cdescription&include=days&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
+        //String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city +"/2023-06-26/2023-06-26?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cwindspeed%2Cwinddir%2Cpressure%2Cvisibility%2Cconditions%2Cdescription&include=days&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
         //String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Gliwice/2023-06-26/2023-06-26?unitGroup=us&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
         LocalDate startDate = LocalDate.now();
         String dailyForecastUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + city + "/"+startDate.toString()+"/"+startDate.toString()+"?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cwindspeed%2Cwinddir%2Cpressure%2Cvisibility%2Cconditions%2Cdescription&include=days&key=5JFQTUSUAU529CC89JAB3XYS4&contentType=json";
